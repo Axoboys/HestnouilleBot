@@ -48,9 +48,7 @@ const IDS = {
     chloe: "1341766652701966419",
     acidic: "1365003269000138854",
     kayou: "1229237844015452222",
-    jojo: "352081982894768130",
-    fanarupi: "1188774372626939946",
-    greg: "1379431022227230740"
+    fanarupi: "1188774372626939946"
 };
 
 // Commandes et descriptions
@@ -76,13 +74,11 @@ const COMMANDS = {
     pendu: { description: "Trouve le mot le plus rapidement possible" },
     axo: { description: "Dire à Axo qu'il est un GOAT" },
     acidic: { description: "Dire à Acidic qu'il est un GOAT" },
-    greg: { description: "Dire à Greg qu'il est un GOAT" },
     chloe: { description: "Dire à Chloé qu'elle est un GOAT" },
     kayou: { description: "Dire à Kayou qu'il est un GOAT" },
     mat: { description: "Dire à Mat qu'il est un GOAT" },
     hestia: { description: "Dire à Hestia qu'il est un GOAT" },
     mano: { description: "Dire à Mano qu'il est un GOAT" },
-    jojo: { description: "Dire à Jojo qu'il est un GOAT" },
     moula: { description: "Dire à Moula qu'il est un GOAT" },
     banana: { description: "Dire à Banana qu'il est un GOAT" },
     fanarupi: { description: "Dire à Fanarupi qu'il est un GOAT" }
