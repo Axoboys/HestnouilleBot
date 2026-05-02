@@ -34,6 +34,7 @@ const DEFINITIONS = {
     bwan: "Menace de ban quelqu'un mais plus gentiment.",
     dentiste: "Lieu mystérieux.",
     bot: "Personne nulle sur un jeu vidéo.",
+    badabibadabwan: "Menace menacente de bwanage un tdb",
     screugneugneu: "Arme qui screugneugneute bien fort les gens."
 };
 
