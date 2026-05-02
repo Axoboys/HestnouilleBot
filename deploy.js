@@ -179,6 +179,7 @@ const commands = [
 	new SlashCommandBuilder().setName("acidic").setDescription("GOAT acidic"),
 	new SlashCommandBuilder().setName("kayou").setDescription("GOAT kayou"),
 	new SlashCommandBuilder().setName("fanarupi").setDescription("GOAT fanarupi"),
+	new SlashCommandBuilder().setName("ash").setDescription("GOAT ash"),
 
 	/* ===== /lesaviezvous ===== */
 	new SlashCommandBuilder()
