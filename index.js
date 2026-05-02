@@ -48,6 +48,7 @@ const IDS = {
     chloe: "1341766652701966419",
     acidic: "1365003269000138854",
     kayou: "1229237844015452222",
+    ash: "1052612579727515708",
     fanarupi: "1188774372626939946"
 };
 
@@ -81,6 +82,7 @@ const COMMANDS = {
     mano: { description: "Dire à Mano qu'il est un GOAT" },
     moula: { description: "Dire à Moula qu'il est un GOAT" },
     banana: { description: "Dire à Banana qu'il est un GOAT" },
+    ash: { description: "Dire à Ash qu'il est un GOAT" },
     fanarupi: { description: "Dire à Fanarupi qu'il est un GOAT" }
 };
 
