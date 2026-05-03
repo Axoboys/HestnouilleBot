@@ -494,7 +494,8 @@ client.on("interactionCreate", async interaction => {
             "✨ GG, absolument incroyable !"
         ];
 
-        await interaction.reply("🎊 **GG à tout le monde !**");
+        await interaction.deferReply();
+        await interaction.editReply("🎊 **GG à tout le monde !**");
         for (const msg of messagesGG) {
             await interaction.channel.send(msg);
             await new Promise(res => setTimeout(res, 700));
@@ -513,7 +514,8 @@ client.on("interactionCreate", async interaction => {
             `🌸 ${u} t'es adorable comme tout !`,
         ];
 
-        await interaction.reply(`💌 Un petit message d'amour pour ${u} !`);
+        await interaction.deferReply();
+        await interaction.editReply(`💌 Un petit message d'amour pour ${u} !`);
         for (const msg of messagesLove) {
             await interaction.channel.send(msg);
             await new Promise(res => setTimeout(res, 800));
