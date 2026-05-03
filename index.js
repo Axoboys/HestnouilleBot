@@ -9,7 +9,7 @@ require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 const http = require("http");
-const PORT = process.env.PORT || 3003;
+const PORT = 3003;
 
 /* ========================= CONFIG ========================= */
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -34,7 +34,6 @@ const DEFINITIONS = {
     bwan: "Menace de ban quelqu'un mais plus gentiment.",
     dentiste: "Lieu mystérieux.",
     bot: "Personne nulle sur un jeu vidéo.",
-    badabibadabwan: "Menace menacente de bwanage un tdb",
     screugneugneu: "Arme qui screugneugneute bien fort les gens."
 };
 
@@ -84,7 +83,9 @@ const COMMANDS = {
     moula: { description: "Dire à Moula qu'il est un GOAT" },
     banana: { description: "Dire à Banana qu'il est un GOAT" },
     ash: { description: "Dire à Ash qu'il est un GOAT" },
-    fanarupi: { description: "Dire à Fanarupi qu'il est un GOAT" }
+    fanarupi: { description: "Dire à Fanarupi qu'il est un GOAT" },
+    gg: { description: "Envoie 10 messages de GG dans le chat" },
+    love: { description: "Envoie des messages d'amour à quelqu'un" }
 };
 
 /* ========================= LOG ========================= */
@@ -476,6 +477,48 @@ client.on("interactionCreate", async interaction => {
     if (cmd === "bwan") {
         const u = interaction.options.getUser("membre");
         return interaction.reply(`💥 ${u} BWAN DEF 💥`);
+    }
+
+    /* ===== GG ===== */
+    if (cmd === "gg") {
+        const messagesGG = [
+            "🎉 GG à toi champion(ne) !",
+            "🔥 GG, t'as tout déchiré !",
+            "👑 GG, vraiment bien joué !",
+            "💪 GG, tu les as tous mis dans ta poche !",
+            "🚀 GG, performance de ouf !",
+            "🏆 GG, tu mérites ta place sur le podium !",
+            "⚡ GG, t'as mis le feu !",
+            "😤 GG, t'as pas fait semblant toi !",
+            "🐐 GG, GOAT behavior !",
+            "✨ GG, absolument incroyable !"
+        ];
+
+        await interaction.reply("🎊 **GG à tout le monde !**");
+        for (const msg of messagesGG) {
+            await interaction.channel.send(msg);
+            await new Promise(res => setTimeout(res, 700));
+        }
+        return;
+    }
+
+    /* ===== LOVE ===== */
+    if (cmd === "love") {
+        const u = interaction.options.getUser("membre");
+        const messagesLove = [
+            `💖 ${u} t'es trop mignon(ne) sérieux !`,
+            `🥰 ${u} on t'aime très fort !`,
+            `💝 ${u} tu illumines ce serveur !`,
+            `😍 ${u} t'es une pépite !`,
+            `🌸 ${u} t'es adorable comme tout !`,
+        ];
+
+        await interaction.reply(`💌 Un petit message d'amour pour ${u} !`);
+        for (const msg of messagesLove) {
+            await interaction.channel.send(msg);
+            await new Promise(res => setTimeout(res, 800));
+        }
+        return;
     }
 
     /* ===== THEME ===== */
