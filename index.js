@@ -178,6 +178,7 @@ function analyserQuestion(question, reponse) {
 client.on("interactionCreate", async interaction => {
     if (!interaction.isChatInputCommand()) return;
     const cmd = interaction.commandName;
+    log("CMD", `/${cmd} utilisé par ${interaction.user.tag} (${interaction.user.id}) dans #${interaction.channel?.name || "inconnu"}`);
 
     /* ===== HELP ===== */
     if (cmd === "help") {
