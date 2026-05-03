@@ -178,8 +178,8 @@ const commands = [
 	new SlashCommandBuilder().setName("chloe").setDescription("GOAT chloe"),
 	new SlashCommandBuilder().setName("acidic").setDescription("GOAT acidic"),
 	new SlashCommandBuilder().setName("kayou").setDescription("GOAT kayou"),
-	new SlashCommandBuilder().setName("fanarupi").setDescription("GOAT fanarupi"),
 	new SlashCommandBuilder().setName("ash").setDescription("GOAT ash"),
+	new SlashCommandBuilder().setName("fanarupi").setDescription("GOAT fanarupi"),
 
 	/* ===== /lesaviezvous ===== */
 	new SlashCommandBuilder()
@@ -189,7 +189,22 @@ const commands = [
 	/* ===== /help ===== */
 	new SlashCommandBuilder()
 		.setName("help")
-		.setDescription("Montre toutes les commandes du bot")
+		.setDescription("Montre toutes les commandes du bot"),
+
+	/* ===== /gg ===== */
+	new SlashCommandBuilder()
+		.setName("gg")
+		.setDescription("Envoie 10 messages de GG dans le chat"),
+
+	/* ===== /love ===== */
+	new SlashCommandBuilder()
+		.setName("love")
+		.setDescription("Envoie des messages d'amour à quelqu'un")
+		.addUserOption(option =>
+			option.setName("membre")
+				.setDescription("La personne à qui envoyer de l'amour")
+				.setRequired(true)
+		),
 
 ].map(cmd => cmd.toJSON());
 
