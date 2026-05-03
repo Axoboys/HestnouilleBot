@@ -481,46 +481,31 @@ client.on("interactionCreate", async interaction => {
 
     /* ===== GG ===== */
     if (cmd === "gg") {
-        const messagesGG = [
-            "🎉 GG à toi champion(ne) !",
-            "🔥 GG, t'as tout déchiré !",
-            "👑 GG, vraiment bien joué !",
-            "💪 GG, tu les as tous mis dans ta poche !",
-            "🚀 GG, performance de ouf !",
-            "🏆 GG, tu mérites ta place sur le podium !",
-            "⚡ GG, t'as mis le feu !",
-            "😤 GG, t'as pas fait semblant toi !",
-            "🐐 GG, GOAT behavior !",
+        return interaction.reply(
+            "🎉 GG à toi champion(ne) !\n" +
+            "🔥 GG, t'as tout déchiré !\n" +
+            "👑 GG, vraiment bien joué !\n" +
+            "💪 GG, tu les as tous mis dans ta poche !\n" +
+            "🚀 GG, performance de ouf !\n" +
+            "🏆 GG, tu mérites ta place sur le podium !\n" +
+            "⚡ GG, t'as mis le feu !\n" +
+            "😤 GG, t'as pas fait semblant toi !\n" +
+            "🐐 GG, GOAT behavior !\n" +
             "✨ GG, absolument incroyable !"
-        ];
-
-        await interaction.deferReply();
-        await interaction.editReply("🎊 **GG à tout le monde !**");
-        for (const msg of messagesGG) {
-            await interaction.channel.send(msg);
-            await new Promise(res => setTimeout(res, 700));
-        }
-        return;
+        );
     }
 
     /* ===== LOVE ===== */
     if (cmd === "love") {
         const u = interaction.options.getUser("membre");
-        const messagesLove = [
-            `💖 ${u} t'es trop mignon(ne) sérieux !`,
-            `🥰 ${u} on t'aime très fort !`,
-            `💝 ${u} tu illumines ce serveur !`,
-            `😍 ${u} t'es une pépite !`,
-            `🌸 ${u} t'es adorable comme tout !`,
-        ];
-
-        await interaction.deferReply();
-        await interaction.editReply(`💌 Un petit message d'amour pour ${u} !`);
-        for (const msg of messagesLove) {
-            await interaction.channel.send(msg);
-            await new Promise(res => setTimeout(res, 800));
-        }
-        return;
+        return interaction.reply(
+            `💌 Un petit message d'amour pour ${u} !\n\n` +
+            `💖 ${u} t'es trop mignon(ne) sérieux !\n` +
+            `🥰 ${u} on t'aime très fort !\n` +
+            `💝 ${u} tu illumines ce serveur !\n` +
+            `😍 ${u} t'es une pépite !\n` +
+            `🌸 ${u} t'es adorable comme tout !`
+        );
     }
 
     /* ===== THEME ===== */
