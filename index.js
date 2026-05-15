@@ -198,7 +198,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== HISTOIRE ===== */
-    if (cmd === "histoire") {
+    else if (cmd === "histoire") {
         const ch = interaction.channel.id;
 
         if (partiesHistoire.has(ch))
@@ -217,7 +217,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== PENDU ===== */
-    if (cmd === "pendu") {
+    else if (cmd === "pendu") {
         const ch = interaction.channel.id;
 
         if (partiesPendu.has(ch))
@@ -255,7 +255,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== PILE OU FACE ===== */
-    if (cmd === "pileouface") {
+    else if (cmd === "pileouface") {
         const result = Math.random() < 0.5 ? "Pile" : "Face";
 
         const embed = new EmbedBuilder()
@@ -268,7 +268,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== WORDLE ===== */
-    if (cmd === "wordle") {
+    else if (cmd === "wordle") {
         const ch = interaction.channel.id;
 
         if (partiesWordle.has(ch))
@@ -306,7 +306,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== MOD : DEPOP ===== */
-    if (cmd === "depop") {
+    else if (cmd === "depop") {
         const member = interaction.member;
         if (!member.roles.cache.has(ROLE_ID_MOD))
             return interaction.reply({ content: "❌ Commande réservée aux modérateurs.", ephemeral: true });
@@ -320,7 +320,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== MOD : DENTISTE ===== */
-    if (cmd === "dentiste") {
+    else if (cmd === "dentiste") {
         const member = interaction.member;
         if (!member.roles.cache.has(ROLE_ID_MOD))
             return interaction.reply({ content: "❌ Commande réservée aux modérateurs.", ephemeral: true });
@@ -335,7 +335,7 @@ client.on("interactionCreate", async interaction => {
 
     /* ===== PUB ===== */
     // FIX : ajout de allowedMentions pour que @everyone fonctionne vraiment
-    if (cmd === "pub") {
+    else if (cmd === "pub") {
         const member = interaction.member;
 
         if (!member.roles.cache.has(ROLE_ID_MOD)) {
@@ -390,7 +390,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== JOIN VOC ===== */
-    if (cmd === "joinvoc") {
+    else if (cmd === "joinvoc") {
         const member = interaction.member;
 
         if (!member.roles.cache.has(ROLE_ID_MOD)) {
@@ -432,7 +432,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== MOD : LOCKVOC ===== */
-    if (cmd === "lockvoc") {
+    else if (cmd === "lockvoc") {
         const member = interaction.member;
         if (!member.roles.cache.has(ROLE_ID_MOD))
             return interaction.reply({ content: "❌ Commande réservée aux modérateurs.", ephemeral: true });
@@ -446,7 +446,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== MOD : UNLOCKVOC ===== */
-    if (cmd === "unlockvoc") {
+    else if (cmd === "unlockvoc") {
         const member = interaction.member;
         if (!member.roles.cache.has(ROLE_ID_MOD))
             return interaction.reply({ content: "❌ Commande réservée aux modérateurs.", ephemeral: true });
@@ -459,12 +459,12 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== FUN ===== */
-    if (cmd === "tdb") {
+    else if (cmd === "tdb") {
         const u = interaction.options.getUser("membre");
         return interaction.reply(`${u} t'es un TDB 😈`);
     }
 
-    if (cmd === "tdb_pourcentage") {
+    else if (cmd === "tdb_pourcentage") {
         const id = interaction.user.id;
         const today = new Date().toDateString();
         let data = fs.existsSync(COOLDOWN_FILE) ? JSON.parse(fs.readFileSync(COOLDOWN_FILE)) : {};
@@ -476,13 +476,13 @@ client.on("interactionCreate", async interaction => {
         return interaction.reply(`${u} a **${Math.floor(Math.random() * 101)}%** de TDB 😈`);
     }
 
-    if (cmd === "bwan") {
+    else if (cmd === "bwan") {
         const u = interaction.options.getUser("membre");
         return interaction.reply(`💥 ${u} BWAN DEF 💥`);
     }
 
     /* ===== GG ===== */
-    if (cmd === "gg") {
+    else if (cmd === "gg") {
         return interaction.reply(
             "🎉 GG à toi champion(ne) !\n" +
             "🔥 GG, t'as tout déchiré !\n" +
@@ -498,7 +498,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== LOVE ===== */
-    if (cmd === "love") {
+    else if (cmd === "love") {
         const u = interaction.options.getUser("membre");
         return interaction.reply(
             `💌 Un petit message d'amour pour ${u} !\n\n` +
@@ -511,7 +511,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== THEME ===== */
-    if (cmd === "theme") {
+    else if (cmd === "theme") {
         const phrase = "Le thème de ce discord est un monde grec antique où l'on peut discuter avec d'autres dans les bains publics !";
 
         const embed = new EmbedBuilder()
@@ -524,7 +524,7 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== DEFINITION ===== */
-    if (cmd === "definition") {
+    else if (cmd === "definition") {
         const mot = interaction.options.getString("mot");
         if (!mot)
             return interaction.reply({ content: "❌ Aucun mot fourni.", ephemeral: true });
@@ -535,13 +535,13 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== LE SAVIEZ VOUS ===== */
-    if (cmd === "lesaviezvous") {
+    else if (cmd === "lesaviezvous") {
         const lines = fs.readFileSync(path.join(__dirname, "anecdotes.txt"), "utf8").split("\n").filter(Boolean);
         return interaction.reply(`🧠 **Le saviez-vous ?**\n${lines[Math.floor(Math.random() * lines.length)]}`);
     }
 
     /* ===== NOMBRE ===== */
-    if (cmd === "nombre") {
+    else if (cmd === "nombre") {
         const ch = interaction.channel.id;
         if (partiesNombre.has(ch))
             return interaction.reply({ content: "❌ Partie déjà en cours.", ephemeral: true });
@@ -564,7 +564,7 @@ client.on("interactionCreate", async interaction => {
 
     /* ===== QUI EST-CE ===== */
     // FIX : stockage de la réponse sous "reponse" (cohérent avec le handler messageCreate)
-    if (cmd === "qui_est_ce") {
+    else if (cmd === "qui_est_ce") {
         const ch = interaction.channel.id;
         if (partiesQuiEstCe.has(ch))
             return interaction.reply({ content: "❌ Partie déjà en cours.", ephemeral: true });
@@ -608,13 +608,13 @@ client.on("interactionCreate", async interaction => {
     }
 
     /* ===== LEVEL ===== */
-    if (cmd === "level") {
+    else if (cmd === "level") {
         const points = getPoints();
         return interaction.reply(`⭐ Tu as **${points[interaction.user.id] || 0}** points.`);
     }
 
     /* ===== CLASSEMENT ===== */
-    if (cmd === "classement") {
+    else if (cmd === "classement") {
         const points = getPoints();
         const sorted = Object.entries(points).sort((a, b) => b[1] - a[1]).slice(0, 10);
         let msg = "🏆 **Classement :**\n";
@@ -626,12 +626,12 @@ client.on("interactionCreate", async interaction => {
 
     /* ===== GOAT ===== */
     // FIX : un seul bloc (suppression du doublon en bas du fichier)
-    if (IDS[cmd]) {
+    else if (IDS[cmd]) {
         return interaction.reply(`🐐 <@${IDS[cmd]}> est un GOAT ABSOLU 🐐`);
     }
 
     /* ===== PRESENTATION ===== */
-    if (cmd === "presentation") {
+    else if (cmd === "presentation") {
         await interaction.reply({ content: "📩 Je t'envoie les questions en privé !", ephemeral: true });
 
         const user = interaction.user;
