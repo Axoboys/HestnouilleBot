@@ -89,6 +89,78 @@ const COMMANDS = {
     love: { description: "Envoie des messages d'amour à quelqu'un" }
 };
 
+/* ========================= INSTAGRAM TRACKER ========================= */
+const INSTAGRAM_VOCAL_ID = "1102648162671415306";
+const INSTAGRAM_USERNAME = "hestia_craft";
+
+async function getInstagramFollowers() {
+    try {
+        const https = require("https");
+        return new Promise((resolve, reject) => {
+            const options = {
+                hostname: "www.instagram.com",
+                path: `/${INSTAGRAM_USERNAME}/`,
+                method: "GET",
+                headers: {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                    "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
+                    "Accept-Encoding": "identity",
+                    "Cache-Control": "no-cache"
+                }
+            };
+            const req = https.request(options, (res) => {
+                let data = "";
+                res.on("data", chunk => data += chunk);
+                res.on("end", () => {
+                    // Cherche le nombre d'abonnés dans le HTML brut
+                    const match = data.match(/"edge_followed_by":\{"count":(\d+)\}/) ||
+                                  data.match(/(\d[\d,\.]+)\s*(?:followers|abonnés)/i) ||
+                                  data.match(/"followers_count":(\d+)/);
+                    if (match) {
+                        resolve(parseInt(match[1].replace(/[,\.]/g, "")));
+                    } else {
+                        reject(new Error("Nombre d'abonnés introuvable dans le HTML"));
+                    }
+                });
+            });
+            req.on("error", reject);
+            req.setTimeout(10000, () => { req.destroy(); reject(new Error("Timeout")); });
+            req.end();
+        });
+    } catch (err) {
+        throw err;
+    }
+}
+
+function formatFollowers(count) {
+    if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(2)}M`;
+    if (count >= 1_000) return `${(count / 1_000).toFixed(2)}K`;
+    return `${count}`;
+}
+
+async function updateInstagramVocal() {
+    try {
+        const followers = await getInstagramFollowers();
+        const formatted = formatFollowers(followers);
+        const guild = client.guilds.cache.first();
+        if (!guild) return log("INSTAGRAM", "❌ Aucun serveur trouvé");
+
+        const channel = await guild.channels.fetch(INSTAGRAM_VOCAL_ID).catch(() => null);
+        if (!channel) return log("INSTAGRAM", `❌ Salon vocal ${INSTAGRAM_VOCAL_ID} introuvable`);
+
+        const newName = `Instagram : ${formatted}`;
+        if (channel.name !== newName) {
+            await channel.setName(newName);
+            log("INSTAGRAM", `✅ Salon renommé : ${newName} (${followers} abonnés)`);
+        } else {
+            log("INSTAGRAM", `ℹ️ Aucun changement : ${newName}`);
+        }
+    } catch (err) {
+        log("INSTAGRAM", `❌ Erreur : ${err.message}`);
+    }
+}
+
 /* ========================= LOG ========================= */
 function log(type, msg) {
     const line = `[${new Date().toISOString()}] [${type}] ${msg}\n`;
@@ -109,6 +181,11 @@ const client = new Client({
 
 client.once("ready", () => {
     console.log(`✅ ${client.user.tag} prêt`);
+
+    // Lance la mise à jour Instagram immédiatement, puis toutes les 24h
+    updateInstagramVocal();
+    setInterval(updateInstagramVocal, 24 * 60 * 60 * 1000);
+    log("INSTAGRAM", "🕐 Tracker Instagram démarré (mise à jour toutes les 24h)");
 });
 
 /* ========================= 🌐 HTTP SHUTDOWN ========================= */
