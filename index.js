@@ -34,6 +34,7 @@ const DEFINITIONS = {
     bwan: "Menace de ban quelqu'un mais plus gentiment.",
     dentiste: "Lieu mystérieux.",
     bot: "Personne nulle sur un jeu vidéo.",
+    tartagueule: "Punition pour remettre les idées à leurs places aux gens pas fun et vraiment con",
     screugneugneu: "Arme qui screugneugneute bien fort les gens."
 };
 
