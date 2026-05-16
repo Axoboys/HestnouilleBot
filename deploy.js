@@ -77,11 +77,20 @@ const commands = [
 	/* ===== /definition ===== */
 	new SlashCommandBuilder()
 		.setName("definition")
-		.setDescription("Donne la définition d'un mot")
+		.setDescription("Donne la définition d'un mot du serveur")
 		.addStringOption(option =>
 			option.setName("mot")
 				.setDescription("Le mot à définir")
 				.setRequired(true)
+				.addChoices(
+					{ name: "tdb", value: "tdb" },
+					{ name: "goat", value: "goat" },
+					{ name: "bwan", value: "bwan" },
+					{ name: "dentiste", value: "dentiste" },
+					{ name: "bot", value: "bot" },
+					{ name: "tartagueule", value: "tartagueule" },
+					{ name: "screugneugneu", value: "screugneugneu" }
+				)
 		),
 
 	/* ===== /nombre ===== */
