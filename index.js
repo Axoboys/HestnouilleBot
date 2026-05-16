@@ -91,46 +91,42 @@ const COMMANDS = {
 
 /* ========================= INSTAGRAM TRACKER ========================= */
 const INSTAGRAM_VOCAL_ID = "1102648162671415306";
-const INSTAGRAM_USERNAME = "hestia_craft";
+const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
 
 async function getInstagramFollowers() {
-    try {
-        const https = require("https");
-        return new Promise((resolve, reject) => {
-            const options = {
-                hostname: "www.instagram.com",
-                path: `/${INSTAGRAM_USERNAME}/`,
-                method: "GET",
-                headers: {
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                    "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
-                    "Accept-Encoding": "identity",
-                    "Cache-Control": "no-cache"
-                }
-            };
-            const req = https.request(options, (res) => {
-                let data = "";
-                res.on("data", chunk => data += chunk);
-                res.on("end", () => {
-                    // Cherche le nombre d'abonnés dans le HTML brut
-                    const match = data.match(/"edge_followed_by":\{"count":(\d+)\}/) ||
-                                  data.match(/(\d[\d,\.]+)\s*(?:followers|abonnés)/i) ||
-                                  data.match(/"followers_count":(\d+)/);
-                    if (match) {
-                        resolve(parseInt(match[1].replace(/[,\.]/g, "")));
+    const https = require("https");
+    return new Promise((resolve, reject) => {
+        const options = {
+            hostname: "instagram-statistics-api.p.rapidapi.com",
+            path: "/community?url=https%3A%2F%2Fwww.instagram.com%2Fhestia_craft%2F",
+            method: "GET",
+            headers: {
+                "X-Rapidapi-Key": RAPIDAPI_KEY,
+                "X-Rapidapi-Host": "instagram-statistics-api.p.rapidapi.com",
+                "Content-Type": "application/json"
+            }
+        };
+        const req = https.request(options, (res) => {
+            let data = "";
+            res.on("data", chunk => data += chunk);
+            res.on("end", () => {
+                try {
+                    const json = JSON.parse(data);
+                    const followers = json?.data?.usersCount;
+                    if (typeof followers === "number") {
+                        resolve(followers);
                     } else {
-                        reject(new Error("Nombre d'abonnés introuvable dans le HTML"));
+                        reject(new Error("Champ usersCount introuvable dans la réponse API"));
                     }
-                });
+                } catch (e) {
+                    reject(new Error("Réponse API invalide : " + e.message));
+                }
             });
-            req.on("error", reject);
-            req.setTimeout(10000, () => { req.destroy(); reject(new Error("Timeout")); });
-            req.end();
         });
-    } catch (err) {
-        throw err;
-    }
+        req.on("error", reject);
+        req.setTimeout(10000, () => { req.destroy(); reject(new Error("Timeout")); });
+        req.end();
+    });
 }
 
 function formatFollowers(count) {
